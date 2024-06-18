@@ -1,0 +1,105 @@
+from sqlalchemy import create_engine, Column, Integer, String, Float, Date, ForeignKey
+from sqlalchemy.orm import relationship, declarative_base, sessionmaker
+
+Base = declarative_base()
+
+class Usuario(Base):
+    __tablename__ = 'usuarios'
+    usuario_id = Column(Integer, primary_key=True)
+    nome = Column(String)
+    email = Column(String)
+    senha = Column(String)
+    tipo = Column(String)  # Treinador, Atleta
+    atletas = relationship('Atleta', back_populates='treinador')
+
+class Atleta(Base):
+    __tablename__ = 'atletas'
+    atleta_id = Column(Integer, primary_key=True)
+    nome = Column(String)
+    data_nascimento = Column(Date)
+    genero = Column(String)
+    altura = Column(Float)
+    peso = Column(Float)
+    treinador_id = Column(Integer, ForeignKey('usuarios.usuario_id'))
+    treinador = relationship('Usuario', back_populates='atletas')
+    historico_treinos = relationship('SessaoTreino', back_populates='atleta')
+    metas_desempenho = relationship('MetaDesempenho', back_populates='atleta')
+    calendario = relationship('Calendario', back_populates='atleta', uselist=False)
+
+class SessaoTreino(Base):
+    __tablename__ = 'sessoes_treino'
+    sessao_id = Column(Integer, primary_key=True)
+    data = Column(Date)
+    duracao = Column(Integer)
+    tipo_treino = Column(String)
+    intensidade = Column(String)
+    atleta_id = Column(Integer, ForeignKey('atletas.atleta_id'))
+    atleta = relationship('Atleta', back_populates='historico_treinos')
+    feedbacks = relationship('FeedbackTreino', back_populates='sessao')
+    calendario_id = Column(Integer, ForeignKey('calendarios.calendario_id'))
+    calendario = relationship('Calendario', back_populates='eventos')
+
+class MetaDesempenho(Base):
+    __tablename__ = 'metas_desempenho'
+    meta_id = Column(Integer, primary_key=True)
+    descricao = Column(String)
+    data_inicio = Column(Date)
+    data_termino = Column(Date)
+    status = Column(String)
+    atleta_id = Column(Integer, ForeignKey('atletas.atleta_id'))
+    atleta = relationship('Atleta', back_populates='metas_desempenho')
+
+class FeedbackTreino(Base):
+    __tablename__ = 'feedbacks_treino'
+    feedback_id = Column(Integer, primary_key=True)
+    sessao_id = Column(Integer, ForeignKey('sessoes_treino.sessao_id'))
+    avaliacao = Column(String)
+    comentario = Column(String)
+    sessao = relationship('SessaoTreino', back_populates='feedbacks')
+
+class RelatorioDesempenho(Base):
+    __tablename__ = 'relatorios_desempenho'
+    relatorio_id = Column(Integer, primary_key=True)
+    atleta_id = Column(Integer, ForeignKey('atletas.atleta_id'))
+    periodo = Column(String)
+    desempenho = Column(String)
+
+class Notificacao(Base):
+    __tablename__ = 'notificacoes'
+    notificacao_id = Column(Integer, primary_key=True)
+    atleta_id = Column(Integer, ForeignKey('atletas.atleta_id'))
+    tipo = Column(String)
+    mensagem = Column(String)
+    data = Column(Date)
+
+class Mensagem(Base):
+    __tablename__ = 'mensagens'
+    mensagem_id = Column(Integer, primary_key=True)
+    remetente_id = Column(Integer, ForeignKey('usuarios.usuario_id'))
+    destinatario_id = Column(Integer, ForeignKey('usuarios.usuario_id'))
+    conteudo = Column(String)
+    data = Column(Date)
+
+class Calendario(Base):
+    __tablename__ = 'calendarios'
+    calendario_id = Column(Integer, primary_key=True)
+    atleta_id = Column(Integer, ForeignKey('atletas.atleta_id'))
+    atleta = relationship('Atleta', back_populates='calendario')
+    eventos = relationship('SessaoTreino', back_populates='calendario')
+
+class AnaliseDesempenho(Base):
+    __tablename__ = 'analises_desempenho'
+    analise_id = Column(Integer, primary_key=True)
+    atleta_id = Column(Integer, ForeignKey('atletas.atleta_id'))
+    graficos = Column(String)
+    estatisticas = Column(String)
+
+# Configurar a engine do SQLAlchemy para o PostgreSQL
+engine = create_engine('postgresql://postgres:12345@localhost/treinamento.db', echo=True)
+
+# Criar todas as tabelas
+Base.metadata.create_all(engine)
+
+# Criar uma sessão para interagir com o banco de dados
+Session = sessionmaker(bind=engine)
+session = Session()

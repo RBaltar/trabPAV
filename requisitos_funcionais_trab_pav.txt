@@ -1,0 +1,47 @@
+Requisitos Funcionais:
+
+1. Cadastro de atletas com dados pessoais e histórico de treinos. Não será permitido cadastrar o mesmo atleta mais de uma vez, porém um atleta poderá ter vários treinos diferentes.
+
+2. Registro de sessões de treino com data, duração, tipo de treino e intensidade.
+
+3. Acompanhamento de metas de desempenho e progresso dos atletas.
+
+4. Geração de relatórios de desempenho por período.
+
+5. Notificações de lembretes de treinos e avaliações periódicas.
+
+6. Visualização de histórico de treino: Permitir que os atletas visualizem o histórico completo de seus treinos.
+
+7. Controle de frequência de treino: Monitorar a frequência dos treinos para garantir a regularidade.
+
+8. Customização de planos de treino: Criar e gerenciar planos de treino personalizados para cada atleta.
+
+9. Feedback e avaliações dos treinos: Permitir que os treinadores avaliem e deem feedback sobre as sessões de treino.
+
+10. Integração com dispositivos de monitoramento: Conectar com dispositivos vestíveis para coleta automática de dados de desempenho.
+
+11. Importação e exportação de dados: Permitir a importação e exportação de dados dos atletas e treinos em formatos como CSV ou Excel.
+
+12. Suporte a múltiplos usuários (treinadores e atletas): Gerenciamento de diferentes tipos de usuários com permissões específicas.
+
+13. Calendário de treinos: Visão em calendário das sessões de treino agendadas.
+
+14. Análise de dados: Ferramentas analíticas para avaliar o desempenho dos atletas com gráficos e estatísticas.
+
+15. Sistema de mensagens internas: Permitir comunicação direta entre treinadores e atletas dentro da plataforma.
+
+
+
+Classes do projeto:
+
+1. Usuario
+2. Atleta
+3. SessaoTreino
+4. MetaDesempenho
+5. FeedbackTreino
+6. RelatorioDesempenho
+7. Notificacao
+8. Mensagem
+9. Calendario
+10. AnaliseDesempenho
+
