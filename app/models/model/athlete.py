@@ -11,6 +11,6 @@ class Athlete(db.Model):
     weight = db.Column(db.Float)
     coach_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
     coach = db.relationship('User', back_populates='athletes')
-    training_sessions = db.relationship('TrainingSession', back_populates='athlete')
+    workout_session = db.relationship('WorkoutSession', back_populates='athlete')
     performance_goals = db.relationship('PerformanceGoal', back_populates='athlete')
     calendar = db.relationship('Calendar', back_populates='athlete', uselist=False)
