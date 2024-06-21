@@ -1,20 +1,30 @@
-from app.models.repository.athlete_repository import AthleteRepository
+from repository.athlete_repository import AthleteRepository
+from model.athlete import Athlete
 
-class AtletaService:
-    def __init__(self):
-        self.repository = AthleteRepository()
+class AthleteService:
+    @staticmethod
+    def get_all_athletes():
+        return AthleteRepository.get_all()
 
-    def create_atleta(self, name, birth_date, gender, height, weight, coach_id):
-        return self.repository.create(name, birth_date, gender, height, weight, coach_id)
+    @staticmethod
+    def get_athlete_by_id(athlete_id):
+        return AthleteRepository.get_by_id(athlete_id)
 
-    def update_atleta(self, athlete_id, name=None, birth_date=None, gender=None, height=None, weight=None, coach_id=None):
-        return self.repository.update(athlete_id, name, birth_date, gender, height, weight, coach_id)
+    @staticmethod
+    def create_athlete(data):
+        new_athlete = Athlete(**data)
+        AthleteRepository.create(new_athlete)
+        return new_athlete
 
-    def delete_atleta(self, athlete_id):
-        return self.repository.delete(athlete_id)
+    @staticmethod
+    def update_athlete(athlete_id, data):
+        athlete = AthleteRepository.get_by_id(athlete_id)
+        for key, value in data.items():
+            setattr(athlete, key, value)
+        AthleteRepository.update()
+        return athlete
 
-    def get_atleta_by_id(self, athlete_id):
-        return self.repository.find_by_id(athlete_id)
-
-    def get_all_atletas(self):
-        return self.repository.find_all()
+    @staticmethod
+    def delete_athlete(athlete_id):
+        athlete = AthleteRepository.get_by_id(athlete_id)
+        AthleteRepository.delete(athlete)

@@ -1,14 +1,22 @@
-# app/models/atleta.py
-from sqlalchemy import Column, Integer, String, Date, ForeignKey
-from sqlalchemy.orm import relationship
-from app.utils.database import Base
+from app.models.service.athlete_service import AthleteService
 
-class Atleta(Base):
-    __tablename__ = "atletas"
-    
-    id = Column(Integer, primary_key=True, index=True)
-    nome = Column(String, index=True)
-    data_nascimento = Column(Date)
-    usuario_id = Column(Integer, ForeignKey("usuarios.id"))
-    usuario = relationship("Usuario")
-    sessoes_treino = relationship("SessaoTreino", back_populates="atleta")
+class AthleteController:
+    @staticmethod
+    def get_all_athletes():
+        return AthleteService.get_all_athletes()
+
+    @staticmethod
+    def get_athlete_by_id(athlete_id):
+        return AthleteService.get_athlete_by_id(athlete_id)
+
+    @staticmethod
+    def create_athlete(data):
+        return AthleteService.create_athlete(data)
+
+    @staticmethod
+    def update_athlete(athlete_id, data):
+        return AthleteService.update_athlete(athlete_id, data)
+
+    @staticmethod
+    def delete_athlete(athlete_id):
+        return AthleteService.delete_athlete(athlete_id)

@@ -1,16 +1,17 @@
-from . import db
+from sqlalchemy import Column, Integer, String, Float, Date, ForeignKey
+from sqlalchemy.orm import relationship
+from app import db
 
 class Athlete(db.Model):
-    """Class representing an athlete in the system."""
     __tablename__ = 'athletes'
-    athlete_id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String)
-    birth_date = db.Column(db.Date)
-    gender = db.Column(db.String)
-    height = db.Column(db.Float)
-    weight = db.Column(db.Float)
-    coach_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
-    coach = db.relationship('User', back_populates='athletes')
-    workout_session = db.relationship('WorkoutSession', back_populates='athlete')
-    performance_goals = db.relationship('PerformanceGoal', back_populates='athlete')
-    calendar = db.relationship('Calendar', back_populates='athlete', uselist=False)
+    athlete_id = Column(Integer, primary_key=True)
+    name = Column(String)
+    birth_date = Column(Date)
+    gender = Column(String)
+    height = Column(Float)
+    weight = Column(Float)
+    trainer_id = Column(Integer, ForeignKey('users.user_id'))
+    trainer = relationship('User', back_populates='athletes')
+    training_sessions = relationship('TrainingSession', back_populates='athlete')
+    performance_goals = relationship('PerformanceGoal', back_populates='athlete')
+    calendar = relationship('Calendar', back_populates='athlete', uselist=False)

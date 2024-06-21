@@ -1,15 +1,16 @@
-from . import db
+from sqlalchemy import Column, Integer, String, Date, ForeignKey
+from sqlalchemy.orm import relationship
+from app import db
 
 class WorkoutSession(db.Model):
-    """Class representing a workout session in the system."""
     __tablename__ = 'workout_sessions'
-    session_id = db.Column(db.Integer, primary_key=True)
-    date = db.Column(db.Date)
-    duration = db.Column(db.Integer)
-    workout_type = db.Column(db.String)
-    intensity = db.Column(db.String)
-    athlete_id = db.Column(db.Integer, db.ForeignKey('athletes.athlete_id'))
-    athlete = db.relationship('Athlete', back_populates='workout_sessions')
-    feedbacks = db.relationship('workoutFeedback', back_populates='session')
-    calendar_id = db.Column(db.Integer, db.ForeignKey('calendars.calendar_id'))
-    calendar = db.relationship('Calendar', back_populates='events')
+    session_id = Column(Integer, primary_key=True)
+    date = Column(Date)
+    duration = Column(Integer)
+    training_type = Column(String)
+    intensity = Column(String)
+    athlete_id = Column(Integer, ForeignKey('athletes.athlete_id'))
+    athlete = relationship('Athlete', back_populates='training_sessions')
+    feedbacks = relationship('WorkoutFeedback', back_populates='session')
+    calendar_id = Column(Integer, ForeignKey('calendars.calendar_id'))
+    calendar = relationship('Calendar', back_populates='events')

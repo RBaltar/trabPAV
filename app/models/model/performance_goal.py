@@ -1,12 +1,13 @@
-from . import db
+from sqlalchemy import Column, Integer, String, Date, ForeignKey
+from sqlalchemy.orm import relationship
+from app import db
 
 class PerformanceGoal(db.Model):
-    """Class representing a performance goal in the system."""
     __tablename__ = 'performance_goals'
-    goal_id = db.Column(db.Integer, primary_key=True)
-    description = db.Column(db.String)
-    start_date = db.Column(db.Date)
-    end_date = db.Column(db.Date)
-    status = db.Column(db.String)
-    athlete_id = db.Column(db.Integer, db.ForeignKey('athletes.athlete_id'))
-    athlete = db.relationship('Athlete', back_populates='performance_goals')
+    goal_id = Column(Integer, primary_key=True)
+    description = Column(String)
+    start_date = Column(Date)
+    end_date = Column(Date)
+    status = Column(String)
+    athlete_id = Column(Integer, ForeignKey('athletes.athlete_id'))
+    athlete = relationship('Athlete', back_populates='performance_goals')

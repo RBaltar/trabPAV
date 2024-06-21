@@ -1,34 +1,25 @@
+from model.workout_feedback import WorkoutFeedback
 from app import db
-from app.models.model import WorkoutFeedback
 
 class WorkoutFeedbackRepository:
-    def create(self, session_id, rating, comment):
-        feedback = WorkoutFeedback(session_id=session_id, rating=rating, comment=comment)
-        db.session.add(feedback)
-        db.session.commit()
-        return feedback
-    
-    def update(self, feedback_id, session_id, rating, comment):
-        feedback = self.find_by_id(feedback_id)
-        if feedback:
-            if session_id:
-                feedback.session_id = session_id
-            if rating:
-                feedback.rating = rating
-            if comment:
-                feedback.comment = comment
-            db.session.commit()
-        return feedback
-    
-    def delete(self, feedback_id):
-        feedback = self.find_by_id(feedback_id)
-        if feedback:
-            db.session.delete(feedback)
-            db.session.commit()
-        return feedback
-    
-    def find_by_id(self, feedback_id):
-        return WorkoutFeedback.query.get(feedback_id)
-    
-    def find_all(self):
+    @staticmethod
+    def get_all():
         return WorkoutFeedback.query.all()
+
+    @staticmethod
+    def get_by_id(feedback_id):
+        return WorkoutFeedback.query.get(feedback_id)
+
+    @staticmethod
+    def create(workout_feedback):
+        db.session.add(workout_feedback)
+        db.session.commit()
+
+    @staticmethod
+    def update():
+        db.session.commit()
+
+    @staticmethod
+    def delete(workout_feedback):
+        db.session.delete(workout_feedback)
+        db.session.commit()

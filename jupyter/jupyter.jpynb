@@ -1,0 +1,378 @@
+# Athlete Training Management API Demonstration
+
+## Introdução
+# Este notebook demonstra a utilização da API de gerenciamento de treinamento de atletas.
+# A API é construída usando Flask-RESTful e fornece endpoints para gerenciar usuários, atletas,
+# análises de desempenho, calendário, mensagens, notificações, metas de desempenho,
+# relatórios de desempenho, feedback de treino e sessões de treino.
+
+# Configuração do Ambiente
+import requests
+
+# Configuração da URL base da API
+BASE_URL = "http://localhost:5000"
+
+## Endpoints de Usuários
+
+### 1. Listar todos os usuários
+# Endpoint: GET /users
+response = requests.get(f"{BASE_URL}/users")
+print("Listar todos os usuários:", response.json())
+
+### 2. Criar um novo usuário
+# Endpoint: POST /users
+new_user = {
+    "name": "João",
+    "email": "joao@example.com",
+    "password": "1234",
+    "type": "Trainer"
+}
+response = requests.post(f"{BASE_URL}/users", json=new_user)
+print("Criar um novo usuário:", response.json())
+
+### 3. Obter um usuário por ID
+# Endpoint: GET /users/{user_id}
+user_id = 1
+response = requests.get(f"{BASE_URL}/users/{user_id}")
+print(f"Obter usuário com ID {user_id}:", response.json())
+
+### 4. Atualizar um usuário por ID
+# Endpoint: PUT /users/{user_id}
+update_data = {"name": "João Silva"}
+response = requests.put(f"{BASE_URL}/users/{user_id}", json=update_data)
+print(f"Atualizar usuário com ID {user_id}:", response.json())
+
+### 5. Deletar um usuário por ID
+# Endpoint: DELETE /users/{user_id}
+response = requests.delete(f"{BASE_URL}/users/{user_id}")
+print(f"Deletar usuário com ID {user_id}:", response.status_code)
+
+## Endpoints de Atletas
+
+### 1. Listar todos os atletas
+# Endpoint: GET /athletes
+response = requests.get(f"{BASE_URL}/athletes")
+print("Listar todos os atletas:", response.json())
+
+### 2. Criar um novo atleta
+# Endpoint: POST /athletes
+new_athlete = {
+    "name": "Pedro",
+    "birth_date": "2000-01-01",
+    "gender": "Male",
+    "height": 1.80,
+    "weight": 75,
+    "trainer_id": 1
+}
+response = requests.post(f"{BASE_URL}/athletes", json=new_athlete)
+print("Criar um novo atleta:", response.json())
+
+### 3. Obter um atleta por ID
+# Endpoint: GET /athletes/{athlete_id}
+athlete_id = 1
+response = requests.get(f"{BASE_URL}/athletes/{athlete_id}")
+print(f"Obter atleta com ID {athlete_id}:", response.json())
+
+### 4. Atualizar um atleta por ID
+# Endpoint: PUT /athletes/{athlete_id}
+update_data = {"weight": 77}
+response = requests.put(f"{BASE_URL}/athletes/{athlete_id}", json=update_data)
+print(f"Atualizar atleta com ID {athlete_id}:", response.json())
+
+### 5. Deletar um atleta por ID
+# Endpoint: DELETE /athletes/{athlete_id}
+response = requests.delete(f"{BASE_URL}/athletes/{athlete_id}")
+print(f"Deletar atleta com ID {athlete_id}:", response.status_code)
+
+## Endpoints de Análises de Desempenho
+
+### 1. Listar todas as análises de desempenho
+# Endpoint: GET /performance_analyses
+response = requests.get(f"{BASE_URL}/performance_analyses")
+print("Listar todas as análises de desempenho:", response.json())
+
+### 2. Criar uma nova análise de desempenho
+# Endpoint: POST /performance_analyses
+new_analysis = {
+    "athlete_id": 1,
+    "charts": "Gráficos de desempenho",
+    "statistics": "Estatísticas de desempenho"
+}
+response = requests.post(f"{BASE_URL}/performance_analyses", json=new_analysis)
+print("Criar uma nova análise de desempenho:", response.json())
+
+### 3. Obter uma análise de desempenho por ID
+# Endpoint: GET /performance_analyses/{analysis_id}
+analysis_id = 1
+response = requests.get(f"{BASE_URL}/performance_analyses/{analysis_id}")
+print(f"Obter análise de desempenho com ID {analysis_id}:", response.json())
+
+### 4. Atualizar uma análise de desempenho por ID
+# Endpoint: PUT /performance_analyses/{analysis_id}
+update_data = {"charts": "Novos gráficos de desempenho"}
+response = requests.put(f"{BASE_URL}/performance_analyses/{analysis_id}", json=update_data)
+print(f"Atualizar análise de desempenho com ID {analysis_id}:", response.json())
+
+### 5. Deletar uma análise de desempenho por ID
+# Endpoint: DELETE /performance_analyses/{analysis_id}
+response = requests.delete(f"{BASE_URL}/performance_analyses/{analysis_id}")
+print(f"Deletar análise de desempenho com ID {analysis_id}:", response.status_code)
+
+## Endpoints de Calendário
+
+### 1. Listar todos os calendários
+# Endpoint: GET /calendars
+response = requests.get(f"{BASE_URL}/calendars")
+print("Listar todos os calendários:", response.json())
+
+### 2. Criar um novo calendário
+# Endpoint: POST /calendars
+new_calendar = {
+    "athlete_id": 1
+}
+response = requests.post(f"{BASE_URL}/calendars", json=new_calendar)
+print("Criar um novo calendário:", response.json())
+
+### 3. Obter um calendário por ID
+# Endpoint: GET /calendars/{calendar_id}
+calendar_id = 1
+response = requests.get(f"{BASE_URL}/calendars/{calendar_id}")
+print(f"Obter calendário com ID {calendar_id}:", response.json())
+
+### 4. Atualizar um calendário por ID
+# Endpoint: PUT /calendars/{calendar_id}
+update_data = {"athlete_id": 1}
+response = requests.put(f"{BASE_URL}/calendars/{calendar_id}", json=update_data)
+print(f"Atualizar calendário com ID {calendar_id}:", response.json())
+
+### 5. Deletar um calendário por ID
+# Endpoint: DELETE /calendars/{calendar_id}
+response = requests.delete(f"{BASE_URL}/calendars/{calendar_id}")
+print(f"Deletar calendário com ID {calendar_id}:", response.status_code)
+
+## Endpoints de Mensagens
+
+### 1. Listar todas as mensagens
+# Endpoint: GET /messages
+response = requests.get(f"{BASE_URL}/messages")
+print("Listar todas as mensagens:", response.json())
+
+### 2. Criar uma nova mensagem
+# Endpoint: POST /messages
+new_message = {
+    "sender_id": 1,
+    "recipient_id": 2,
+    "content": "Olá, como vai?",
+    "date": "2024-06-21"
+}
+response = requests.post(f"{BASE_URL}/messages", json=new_message)
+print("Criar uma nova mensagem:", response.json())
+
+### 3. Obter uma mensagem por ID
+# Endpoint: GET /messages/{message_id}
+message_id = 1
+response = requests.get(f"{BASE_URL}/messages/{message_id}")
+print(f"Obter mensagem com ID {message_id}:", response.json())
+
+### 4. Atualizar uma mensagem por ID
+# Endpoint: PUT /messages/{message_id}
+update_data = {"content": "Olá, como você está?"}
+response = requests.put(f"{BASE_URL}/messages/{message_id}", json=update_data)
+print(f"Atualizar mensagem com ID {message_id}:", response.json())
+
+### 5. Deletar uma mensagem por ID
+# Endpoint: DELETE /messages/{message_id}
+response = requests.delete(f"{BASE_URL}/messages/{message_id}")
+print(f"Deletar mensagem com ID {message_id}:", response.status_code)
+
+## Endpoints de Notificações
+
+### 1. Listar todas as notificações
+# Endpoint: GET /notifications
+response = requests.get(f"{BASE_URL}/notifications")
+print("Listar todas as notificações:", response.json())
+
+### 2. Criar uma nova notificação
+# Endpoint: POST /notifications
+new_notification = {
+    "athlete_id": 1,
+    "type": "Reminder",
+    "message": "Lembrete de treino",
+    "date": "2024-06-21"
+}
+response = requests.post(f"{BASE_URL}/notifications", json=new_notification)
+print("Criar uma nova notificação:", response.json())
+
+### 3. Obter uma notificação por ID
+# Endpoint: GET /notifications/{notification_id}
+notification_id = 1
+response = requests.get(f"{BASE_URL}/notifications/{notification_id}")
+print(f"Obter notificação com ID {notification_id}:", response.json())
+
+### 4. Atualizar uma notificação por ID
+# Endpoint: PUT /notifications/{notification_id}
+update_data = {"message": "Lembrete de treino atualizado"}
+response = requests.put(f"{BASE_URL}/notifications/{notification_id}", json=update_data)
+print(f"Atualizar notificação com ID {notification_id}:", response.json())
+
+### 5. Deletar uma notificação por ID
+# Endpoint: DELETE /notifications/{notification_id}
+response = requests.delete(f"{BASE_URL}/notifications/{notification_id}")
+print(f"Deletar notificação com ID {notification_id}:", response.status_code)
+
+## Endpoints de Metas de Desempenho
+
+### 1. Listar todas as metas de desempenho
+# Endpoint: GET /performance_goals
+response = requests.get(f"{BASE_URL}/performance_goals")
+print("Listar todas as metas de desempenho:", response.json())
+
+### 2. Criar uma nova meta de desempenho
+# Endpoint: POST /performance_goals
+new_goal = {
+    "description": "Aumentar a força",
+    "start_date": "2024-01-01",
+    "end_date": "2024-12-31",
+    "status": "In Progress",
+    "athlete_id": 1
+}
+response = requests.post(f"{BASE_URL}/performance_goals", json=new_goal)
+print("Criar uma nova meta de desempenho:", response.json())
+
+### 3. Obter uma meta de desempenho por ID
+# Endpoint: GET /performance_goals/{goal_id}
+goal_id = 1
+response = requests.get(f"{BASE_URL}/performance_goals/{goal_id}")
+print(f"Obter meta de desempenho com ID {goal_id}:", response.json())
+
+### 4. Atualizar uma meta de desempenho por ID
+# Endpoint: PUT /performance_goals/{goal_id}
+update_data = {"status": "Completed"}
+response = requests.put(f"{BASE_URL}/performance_goals/{goal_id}", json=update_data)
+print(f"Atualizar meta de desempenho com ID {goal_id}:", response.json())
+
+### 5. Deletar uma meta de desempenho por ID
+# Endpoint: DELETE /performance_goals/{goal_id}
+response = requests.delete(f"{BASE_URL}/performance_goals/{goal_id}")
+print(f"Deletar meta de desempenho com ID {goal_id}:", response.status_code)
+
+## Endpoints de Relatórios de Desempenho
+
+### 1. Listar todos os relatórios de desempenho
+# Endpoint: GET /performance_reports
+response = requests.get(f"{BASE_URL}/performance_reports")
+print("Listar todos os relatórios de desempenho:", response.json())
+
+### 2. Criar um novo relatório de desempenho
+# Endpoint: POST /performance_reports
+new_report = {
+    "athlete_id": 1,
+    "period": "2024-06",
+    "performance": "Excelente"
+}
+response = requests.post(f"{BASE_URL}/performance_reports", json=new_report)
+print("Criar um novo relatório de desempenho:", response.json())
+
+### 3. Obter um relatório de desempenho por ID
+# Endpoint: GET /performance_reports/{report_id}
+report_id = 1
+response = requests.get(f"{BASE_URL}/performance_reports/{report_id}")
+print(f"Obter relatório de desempenho com ID {report_id}:", response.json())
+
+### 4. Atualizar um relatório de desempenho por ID
+# Endpoint: PUT /performance_reports/{report_id}
+update_data = {"performance": "Muito Bom"}
+response = requests.put(f"{BASE_URL}/performance_reports/{report_id}", json=update_data)
+print(f"Atualizar relatório de desempenho com ID {report_id}:", response.json())
+
+### 5. Deletar um relatório de desempenho por ID
+# Endpoint: DELETE /performance_reports/{report_id}
+response = requests.delete(f"{BASE_URL}/performance_reports/{report_id}")
+print(f"Deletar relatório de desempenho com ID {report_id}:", response.status_code)
+
+## Endpoints de Feedback de Treino
+
+### 1. Listar todos os feedbacks de treino
+# Endpoint: GET /workout_feedbacks
+response = requests.get(f"{BASE_URL}/workout_feedbacks")
+print("Listar todos os feedbacks de treino:", response.json())
+
+### 2. Criar um novo feedback de treino
+# Endpoint: POST /workout_feedbacks
+new_feedback = {
+    "session_id": 1,
+    "evaluation": "Ótimo",
+    "comment": "Continue assim"
+}
+response = requests.post(f"{BASE_URL}/workout_feedbacks", json=new_feedback)
+print("Criar um novo feedback de treino:", response.json())
+
+### 3. Obter um feedback de treino por ID
+# Endpoint: GET /workout_feedbacks/{feedback_id}
+feedback_id = 1
+response = requests.get(f"{BASE_URL}/workout_feedbacks/{feedback_id}")
+print(f"Obter feedback de treino com ID {feedback_id}:", response.json())
+
+### 4. Atualizar um feedback de treino por ID
+# Endpoint: PUT /workout_feedbacks/{feedback_id}
+update_data = {"comment": "Muito bom, continue assim"}
+response = requests.put(f"{BASE_URL}/workout_feedbacks/{feedback_id}", json=update_data)
+print(f"Atualizar feedback de treino com ID {feedback_id}:", response.json())
+
+### 5. Deletar um feedback de treino por ID
+# Endpoint: DELETE /workout_feedbacks/{feedback_id}
+response = requests.delete(f"{BASE_URL}/workout_feedbacks/{feedback_id}")
+print(f"Deletar feedback de treino com ID {feedback_id}:", response.status_code)
+
+## Endpoints de Sessões de Treino
+
+### 1. Listar todas as sessões de treino
+# Endpoint: GET /workout_sessions
+response = requests.get(f"{BASE_URL}/workout_sessions")
+print("Listar todas as sessões de treino:", response.json())
+
+### 2. Criar uma nova sessão de treino
+# Endpoint: POST /workout_sessions
+new_session = {
+    "date": "2024-06-21",
+    "duration": 60,
+    "training_type": "Cardio",
+    "intensity": "Alta",
+    "athlete_id": 1,
+    "calendar_id": 1
+}
+response = requests.post(f"{BASE_URL}/workout_sessions", json=new_session)
+print("Criar uma nova sessão de treino:", response.json())
+
+### 3. Obter uma sessão de treino por ID
+# Endpoint: GET /workout_sessions/{session_id}
+session_id = 1
+response = requests.get(f"{BASE_URL}/workout_sessions/{session_id}")
+print(f"Obter sessão de treino com ID {session_id}:", response.json())
+
+### 4. Atualizar uma sessão de treino por ID
+# Endpoint: PUT /workout_sessions/{session_id}
+update_data = {"intensity": "Média"}
+response = requests.put(f"{BASE_URL}/workout_sessions/{session_id}", json=update_data)
+print(f"Atualizar sessão de treino com ID {session_id}:", response.json())
+
+### 5. Deletar uma sessão de treino por ID
+# Endpoint: DELETE /workout_sessions/{session_id}
+response = requests.delete(f"{BASE_URL}/workout_sessions/{session_id}")
+print(f"Deletar sessão de treino com ID {session_id}:", response.status_code)
+
+## Endpoints de Sessões de Treino por Atleta
+
+### 1. Listar todas as sessões de treino de um atleta específico
+# Endpoint: GET /athletes/{athlete_id}/workout_sessions
+athlete_id = 1
+response = requests.get(f"{BASE_URL}/athletes/{athlete_id}/workout_sessions")
+print(f"Listar todas as sessões de treino do atleta com ID {athlete_id}:", response.json())
+
+## Endpoints de Frequência de Treino por Atleta
+
+### 1. Obter a frequência de treino de um atleta específico
+# Endpoint: GET /athletes/{athlete_id}/workout_frequency
+athlete_id = 1
+response = requests.get(f"{BASE_URL}/athletes/{athlete_id}/workout_frequency")
+print(f"Obter a frequência de treino do atleta com ID {athlete_id}:", response.json())

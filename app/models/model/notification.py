@@ -1,10 +1,12 @@
-from . import db
+from sqlalchemy import Column, Integer, String, ForeignKey, Date
+from sqlalchemy.orm import relationship
+from app import db
 
 class Notification(db.Model):
-    """Class representing a notification in the system."""
     __tablename__ = 'notifications'
-    notification_id = db.Column(db.Integer, primary_key=True)
-    athlete_id = db.Column(db.Integer, db.ForeignKey('athletes.athlete_id'))
-    type = db.Column(db.String)
-    message = db.Column(db.String)
-    date = db.Column(db.Date)
+    notification_id = Column(Integer, primary_key=True)
+    athlete_id = Column(Integer, ForeignKey('athletes.athlete_id'))
+    type = Column(String)
+    message = Column(String)
+    date = Column(Date)
+    athlete = relationship('Athlete', back_populates='notifications')
